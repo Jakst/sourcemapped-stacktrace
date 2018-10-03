@@ -44,7 +44,7 @@ function(source_map_consumer) {
     var fetcher = new Fetcher(opts);
 
     if (isChromeOrEdge() || isIE11Plus()) {
-      regex = /^ +at.+\((.*):([0-9]+):([0-9]+)/;
+      regex = /^ +at.*[ ]\(?(.*):([0-9]+):([0-9]+)/;
       expected_fields = 4;
       // (skip first line containing exception message)
       skip_lines = 1;
