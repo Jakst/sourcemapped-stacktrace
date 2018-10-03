@@ -216,7 +216,7 @@ function(source_map_consumer) {
           var origPos = map.originalPositionFor(
             { line: line, column: column });
           result.push(formatOriginalPosition(origPos.source,
-            origPos.line, origPos.column, origPos.name || origName(lines[i])));
+            origPos.line, origPos.column, origPos.name));
         } else {
           // we can't find a map for that url, but we parsed the row.
           // reformat unchanged line for consistency with the sourcemapped
@@ -241,8 +241,12 @@ function(source_map_consumer) {
 
   var formatOriginalPosition = function(source, line, column, name) {
     // mimic chrome's format
-    return "    at " + (name ? name : "(unknown)") +
-      " (" + source + ":" + line + ":" + column + ")";
+    if (name) {
+      return "    at " + name +
+        " (" + source + ":" + line + ":" + column + ")";
+    }
+
+    return "    at " + source + ":" + line + ":" + column;
   };
 
   // xmlhttprequest boilerplate
